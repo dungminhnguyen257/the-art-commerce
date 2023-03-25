@@ -1,0 +1,25 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model Admin {
+  id            String       @default(cuid()) @id
+  firstName     String  @map(name: "first_name")
+  lastName      String  @map(name: "last_name")
+  email         String   @unique
+  phone         String?
+  createdAt     DateTime  @default(now()) @map(name: "created_at")
+  updatedAt     DateTime  @updatedAt @map(name: "updated_at")
+  deleteAt      DateTime?  @map(name: "deleted_at")
+  @@map(name: "admins")
+
+}
