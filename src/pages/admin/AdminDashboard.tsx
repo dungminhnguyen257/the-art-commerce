@@ -1,39 +1,42 @@
-import './styles.css';
-
-// eslint-disable-next-line import/no-extraneous-dependencies
-import React from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import { useForm } from 'react-hook-form';
 
-type Inputs = {
-  example: string;
-  exampleRequired: string;
-};
+import { Meta } from '@/layouts/Meta';
+import { Main } from '@/templates/Main';
 
-export default function admindashboard() {
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-  } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+enum GenderEnum {
+  female = 'female',
+  male = 'male',
+  other = 'other',
+}
 
-  console.log(watch('example')); // watch input value by passing the name of it
+interface IFormInput {
+  firstName: String;
+  gender: GenderEnum;
+}
+const AdminDashboard = () => {
+  const { register, handleSubmit } = useForm<IFormInput>();
+  const onSubmit: SubmitHandler<IFormInput> = (data: unknown) =>
+    console.log(data);
 
   return (
-    /* "handleSubmit" will validate your inputs before invoking "onSubmit" */
-    <form onSubmit={handleSubmit(onSubmit)}>
-      {/* register your input into the hook by invoking the "register" function */}
-      <input defaultValue="test" {...register('example')} />
-
-      {/* include validation with required or other standard HTML validation rules */}
-      <input {...register('exampleRequired', { required: true })} />
-      {/* errors will return when field validation fails  */}
-      {errors.exampleRequired && <span>This field is required</span>}
-
-      <input type="submit" />
-    </form>
+    <>
+      <Main meta={<Meta title="Lorem ipsum" description="Lorem ipsum" />}>
+        <h1>Admin dashboard works!</h1>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <label>First Name</label>
+          <input {...register('firstName')} />
+          <label>Gender Selection</label>
+          <select {...register('gender')}>
+            <option value="female">female</option>
+            <option value="male">male</option>
+            <option value="other">other</option>
+          </select>
+          <input type="submit" />
+        </form>
+      </Main>
+    </>
   );
-}
+};
+
+export default AdminDashboard;
