@@ -1,3 +1,10 @@
+# [0.1.0](https://github.com/dungminhnguyen257/the-art-commerce/compare/v0.0.1...v0.1.0) (2023-04-03)
+
+
+### Features
+
+* set up prisma and db connection ([dc8679c](https://github.com/dungminhnguyen257/the-art-commerce/commit/dc8679c9043a5dd5c53981d9f6f4012a2328f73e))
+
 ## [3.8.1](https://github.com/ixartz/Next-js-Boilerplate/compare/v3.8.0...v3.8.1) (2023-03-16)
 
 
