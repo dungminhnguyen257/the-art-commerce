@@ -2,7 +2,7 @@ name: Release
 
 on:
   workflow_run:
-    workflows: ["CI"]
+    workflows: ['CI']
     types:
       - completed
     branches:
@@ -16,6 +16,9 @@ jobs:
 
     name: Create a new release
     runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: write
 
     steps:
       - uses: actions/checkout@v3
@@ -25,7 +28,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-          cache: "npm"
+          cache: 'npm'
       - run: HUSKY=0 npm ci
 
       - name: Release
