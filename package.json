@@ -22,17 +22,22 @@
     "postbuild": "next-sitemap"
   },
   "dependencies": {
+    "@prisma/client": "^4.11.0",
+    "cuid": "^3.0.0",
+    "jest-mock-extended": "^3.0.4",
     "next": "^13.2.4",
     "next-seo": "^5.15.0",
     "next-sitemap": "^4.0.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-hook-form": "^7.43.8"
+    "react-hook-form": "^7.43.8",
+    "sass": "^1.60.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.4.4",
     "@commitlint/config-conventional": "^17.4.4",
     "@commitlint/cz-commitlint": "^17.4.4",
+    "@faker-js/faker": "^7.6.0",
     "@next/bundle-analyzer": "^13.2.4",
     "@percy/cli": "^1.20.3",
     "@percy/cypress": "^3.1.2",
@@ -76,6 +81,7 @@
     "npm-run-all": "^4.1.5",
     "postcss": "^8.4.21",
     "prettier": "^2.8.4",
+    "prisma": "^4.11.0",
     "rimraf": "^4.4.0",
     "semantic-release": "^19.0.5",
     "start-server-and-test": "^2.0.0",
@@ -104,6 +110,5 @@
       "@semantic-release/git",
       "@semantic-release/github"
     ]
-  },
-  "author": "Ixartz (https://github.com/ixartz)"
+  }
 }

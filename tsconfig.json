@@ -38,9 +38,11 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
+      "@db/*": ["./src/lib/db/*"],
+      "@lib/*": ["./src/lib/*"],
       "@/public/*": ["./public/*"]
     }
   },
   "exclude": ["./out/**/*", "./node_modules/**/*", "cypress/**/*.ts"],
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/lib/db/models"]
 }
