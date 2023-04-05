@@ -44,11 +44,9 @@
     }
   },
   "exclude": ["./out/**/*", "./node_modules/**/*", "cypress/**/*.ts"],
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "**/*.tsx",
-    "src/lib/db/models"
-  ]
+<<<<<<< HEAD
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.tsx"]
+=======
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/lib/db/models"]
+>>>>>>> 27f681b6136732406e15312579e57c3a1c293579
 }
