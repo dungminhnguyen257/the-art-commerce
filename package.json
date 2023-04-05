@@ -48,7 +48,7 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
     "@types/jest": "^29.4.0",
-    "@types/node": "^18.15.0",
+    "@types/node": "^18.15.11",
     "@types/react": "^18.0.28",
     "@typescript-eslint/eslint-plugin": "^5.54.1",
     "@typescript-eslint/parser": "^5.54.1",
@@ -82,11 +82,12 @@
     "npm-run-all": "^4.1.5",
     "postcss": "^8.4.21",
     "prettier": "^2.8.4",
-    "prisma": "^4.11.0",
+    "prisma": "^4.12.0",
     "rimraf": "^4.4.0",
     "semantic-release": "^19.0.5",
     "start-server-and-test": "^2.0.0",
     "tailwindcss": "^3.2.7",
+    "ts-node": "^10.9.1",
     "typescript": "^4.9.5"
   },
   "config": {
