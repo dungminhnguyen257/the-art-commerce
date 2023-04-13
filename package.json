@@ -23,15 +23,18 @@
   },
   "dependencies": {
     "@prisma/client": "^4.11.0",
+    "classnames": "^2.3.2",
     "cuid": "^3.0.0",
     "jest-mock-extended": "^3.0.4",
     "next": "^13.2.4",
     "next-seo": "^5.15.0",
     "next-sitemap": "^4.0.5",
+    "next-themes": "^0.2.1",
     "npm": "^9.6.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.43.8",
+    "react-icons": "^4.8.0",
     "sass": "^1.60.0"
   },
   "devDependencies": {
