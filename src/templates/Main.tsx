@@ -12,8 +12,6 @@ type IMainProps = {
 
 const Main = (props: IMainProps) => {
   const { theme } = useTheme();
-  console.log(theme);
-  // const currentTheme = theme === 'system' ? systemTheme : theme;
   return (
     <>
       <Navbar />
@@ -54,14 +52,6 @@ const Main = (props: IMainProps) => {
                       GitHub
                     </a>
                   </li>
-                  <li className="mr-6">
-                    <Link
-                      href="/admindashboard/"
-                      className="border-none hover:text-yellow-900"
-                    >
-                      Dash Board
-                    </Link>
-                  </li>
                 </ul>
               </nav>
             </div>
@@ -71,12 +61,6 @@ const Main = (props: IMainProps) => {
           <footer className="border-t border-gray-300 py-8 text-center text-sm">
             © Copyright {new Date().getFullYear()} {AppConfig.title}. Made with{' '}
             <a href="https://creativedesignsguru.com">CreativeDesignsGuru</a>.
-            {/*
-             * PLEASE READ THIS SECTION
-             * I'm an indie maker with limited resources and funds, I'll really appreciate if you could have a link to my website.
-             * The link doesn't need to appear on every pages, one link on one page is enough.
-             * For example, in the `About` page. Thank you for your support, it'll mean a lot to me.
-             */}
           </footer>
         </div>
       </div>
