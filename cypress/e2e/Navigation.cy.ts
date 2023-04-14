@@ -12,8 +12,8 @@ describe('Navigation', () => {
       // Find a link containing "About" text and click it
       cy.findByRole('link', { name: 'About' }).click();
 
-      // The new url should include "/about"
-      cy.url().should('include', '/about');
+      // The new url should include "/cart"
+      cy.url().should('include', '/cart');
 
       // The new page should contain two "lorem ipsum" paragraphs
       cy.findAllByText('Lorem ipsum dolor sit amet', { exact: false }).should(
@@ -34,12 +34,12 @@ describe('Navigation', () => {
     });
 
     it('should take screenshot of the About page', () => {
-      cy.visit('/about');
+      cy.visit('/cart');
 
       // Wait until the page is displayed
-      cy.findByRole('link', { name: 'About' });
+      cy.findByRole('link', { name: 'Cart' });
 
-      cy.percySnapshot('About');
+      cy.percySnapshot('Cart');
     });
   });
 });

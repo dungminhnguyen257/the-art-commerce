@@ -36,12 +36,12 @@ const Navbar = () => {
               navbar ? 'block' : 'hidden'
             }`}
           >
-            <div className="items-end">
+            <div>
               <ul className="flex flex-wrap text-xl">
                 <li>
                   <Link
                     href="/"
-                    className="block py-2 hover:text-purple-400 md:p-4"
+                    className="block py-2 hover:text-yellow-900 md:p-4"
                   >
                     Home
                   </Link>
@@ -49,17 +49,17 @@ const Navbar = () => {
                 <li>
                   <Link
                     href="/"
-                    className="block py-2 hover:text-purple-400 md:p-4"
+                    className="block py-2 hover:text-yellow-900 md:p-4"
                   >
-                    Home
+                    👤
                   </Link>
                 </li>
                 <li>
                   <Link
-                    href="/"
-                    className="block py-2 hover:text-purple-400 md:p-4"
+                    href="/cart"
+                    className="block py-2 hover:text-yellow-900 md:p-4"
                   >
-                    Home
+                    🛒
                   </Link>
                 </li>
               </ul>

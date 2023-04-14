@@ -38,10 +38,10 @@ const Main = (props: IMainProps) => {
                   </li>
                   <li className="mr-6">
                     <Link
-                      href="/about/"
+                      href="/cart/"
                       className="border-none hover:text-yellow-900"
                     >
-                      About
+                      Cart
                     </Link>
                   </li>
                   <li className="mr-6">

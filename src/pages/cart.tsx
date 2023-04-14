@@ -1,7 +1,7 @@
 import { Meta } from '@/layouts/Meta';
 import { Main } from '@/templates/Main';
 
-const About = () => (
+const Cart = () => (
   <Main meta={<Meta title="Lorem ipsum" description="Lorem ipsum" />}>
     <p>
       Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ratione fuga
@@ -18,4 +18,4 @@ const About = () => (
   </Main>
 );
 
-export default About;
+export default Cart;
