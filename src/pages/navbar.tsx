@@ -1,6 +1,9 @@
 'use client';
 
 // this is a client component
+import TranslateIcon from '@mui/icons-material/Translate';
+import Button from '@mui/material/Button';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
 import React, { useState } from 'react';
@@ -9,17 +12,20 @@ import { RiMoonFill, RiSunLine } from 'react-icons/ri';
 
 import { AppConfig } from '@/utils/AppConfig';
 
+import logo from '../../public/assets/images/logo-2023.png';
+
 const Navbar = () => {
   const { systemTheme, theme, setTheme } = useTheme();
   const currentTheme = theme === 'system' ? systemTheme : theme;
   const [navbar, setNavbar] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 mx-auto w-full px-4 dark:border-b dark:border-stone-300 sm:px-20 ">
+    <header className="sticky top-0 z-50 mx-auto w-full bg-white px-4 dark:border-b dark:border-stone-300 sm:px-20 ">
       <div className="justify-between md:flex md:items-center">
-        <div>
+        <div className="flex flex-row">
+          <Image src={logo} alt="company's logo" width={80} height={0} />
           <div className="flex items-center justify-between py-3">
-            <div className="md:block md:py-5 ">
+            <div className="md:flex md:py-5 ">
               <h2 className="text-2xl font-bold">{AppConfig.title}</h2>
             </div>
             <div className="md:hidden">
@@ -32,8 +38,8 @@ const Navbar = () => {
 
         <div>
           <div
-            className={`mt-8 flex-1 justify-self-center pb-3 md:mt-0 md:block md:pb-0 ${
-              navbar ? 'block' : 'hidden'
+            className={`mt-8 flex-1 justify-self-center pb-3 md:mt-0 md:flex md:pb-0 ${
+              navbar ? 'flex' : 'hidden'
             }`}
           >
             <div>
@@ -41,23 +47,23 @@ const Navbar = () => {
                 <li>
                   <Link
                     href="/"
-                    className="block py-2 hover:text-yellow-900 md:p-4"
+                    className="flex py-2 hover:text-yellow-900 md:p-4"
                   >
                     Home
                   </Link>
                 </li>
                 <li>
                   <Link
-                    href="/"
-                    className="block py-2 hover:text-yellow-900 md:p-4"
+                    href="/cart/"
+                    className="flex py-2 hover:text-yellow-900 md:p-4"
                   >
                     👤
                   </Link>
                 </li>
                 <li>
                   <Link
-                    href="/cart"
-                    className="block py-2 hover:text-yellow-900 md:p-4"
+                    href="/"
+                    className="flex py-2 hover:text-yellow-900 md:p-4"
                   >
                     🛒
                   </Link>
@@ -81,6 +87,14 @@ const Navbar = () => {
                 </button>
               )}
             </div>
+            <Button
+              aria-controls="simple-menu"
+              aria-haspopup="true"
+              color="primary"
+              startIcon={<TranslateIcon />}
+            >
+              Language
+            </Button>
           </div>
         </div>
       </div>
