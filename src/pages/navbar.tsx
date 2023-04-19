@@ -47,7 +47,7 @@ const Navbar = () => {
                 <li>
                   <Link
                     href="/"
-                    className="flex py-2 hover:text-yellow-900 md:p-4"
+                    className="flex p-2 hover:text-yellow-900 md:p-4"
                   >
                     Home
                   </Link>
@@ -55,22 +55,22 @@ const Navbar = () => {
                 <li>
                   <Link
                     href="/cart/"
-                    className="flex py-2 hover:text-yellow-900 md:p-4"
+                    className="flex p-2 hover:text-yellow-900 md:p-4"
                   >
-                    👤
+                    👤 Account
                   </Link>
                 </li>
                 <li>
                   <Link
                     href="/"
-                    className="flex py-2 hover:text-yellow-900 md:p-4"
+                    className="flex p-2 hover:text-yellow-900 md:p-4"
                   >
-                    🛒
+                    Your 🛒
                   </Link>
                 </li>
               </ul>
             </div>
-            <div className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0">
+            <div className="items-center justify-center space-y-8 p-4 md:flex md:space-x-6 md:space-y-0">
               {currentTheme === 'dark' ? (
                 <button
                   onClick={() => setTheme('light')}
