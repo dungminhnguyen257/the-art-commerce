@@ -1,6 +1,7 @@
 'use client';
 
 // this is a client component
+import Link from 'next/link';
 import { useTheme } from 'next-themes';
 import React, { useState } from 'react';
 import { IoMdClose, IoMdMenu } from 'react-icons/io';
@@ -35,6 +36,34 @@ const Navbar = () => {
               navbar ? 'block' : 'hidden'
             }`}
           >
+            <div>
+              <ul className="flex flex-wrap text-xl">
+                <li>
+                  <Link
+                    href="/"
+                    className="block py-2 hover:text-yellow-900 md:p-4"
+                  >
+                    Home
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/"
+                    className="block py-2 hover:text-yellow-900 md:p-4"
+                  >
+                    👤
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/cart"
+                    className="block py-2 hover:text-yellow-900 md:p-4"
+                  >
+                    🛒
+                  </Link>
+                </li>
+              </ul>
+            </div>
             <div className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0">
               {currentTheme === 'dark' ? (
                 <button
