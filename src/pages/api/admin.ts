@@ -2,9 +2,10 @@
 import * as dao from '@lib/admin/dao';
 import type { AdminResponse } from '@lib/admin/dto';
 import { AdminRequestBodySchema } from '@lib/admin/dto';
-import { apiHandler } from '@lib/utils/api';
 import { StatusCodes } from 'http-status-codes';
 import type { NextApiHandler } from 'next';
+
+import { apiHandler } from '@/lib/utils/api-handler';
 
 const postAdmin: NextApiHandler<AdminResponse> = async (req, res) => {
   AdminRequestBodySchema.parse(req.body);
