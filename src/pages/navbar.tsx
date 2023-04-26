@@ -26,7 +26,9 @@ const Navbar = () => {
           <Image src={logo} alt="company's logo" width={80} height={0} />
           <div className="flex items-center justify-between py-3">
             <div className="md:flex md:py-5 ">
-              <h2 className="text-2xl font-bold">{AppConfig.title}</h2>
+              <h2 className="text-2xl font-bold text-yellow-600">
+                {AppConfig.title}
+              </h2>
             </div>
             <div className="md:hidden">
               <button onClick={() => setNavbar(!navbar)}>
@@ -57,7 +59,7 @@ const Navbar = () => {
                     href="/cart/"
                     className="flex p-2 hover:text-yellow-900 md:p-4"
                   >
-                    👤 Account
+                    Account
                   </Link>
                 </li>
                 <li>
@@ -65,7 +67,7 @@ const Navbar = () => {
                     href="/"
                     className="flex p-2 hover:text-yellow-900 md:p-4"
                   >
-                    Your 🛒
+                    Your Cart
                   </Link>
                 </li>
               </ul>
