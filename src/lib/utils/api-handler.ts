@@ -49,8 +49,11 @@ function errorHandler(err: unknown, res: NextApiResponse<ErrorResponse>) {
     }
   }
   // default to 500 server error
-  return res.status(500).json({
-    error: { message: 'Internal Server Error', detail: err },
+  return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+    error: {
+      message: (err as any).message ?? 'Internal Server Error',
+      detail: err,
+    },
     status: createHttpError.isHttpError(err) ? err.statusCode : 500,
   });
 }
