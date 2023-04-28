@@ -1,4 +1,5 @@
 import Link from 'next/link';
+// import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTheme } from 'next-themes';
 import type { ReactNode } from 'react';
 

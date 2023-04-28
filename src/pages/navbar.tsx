@@ -6,6 +6,8 @@ import Button from '@mui/material/Button';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useTranslation } from 'next-i18next';
+// import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTheme } from 'next-themes';
 import React, { useState } from 'react';
 import { IoMdClose, IoMdMenu } from 'react-icons/io';
@@ -20,20 +22,22 @@ const Navbar = () => {
   const currentTheme = theme === 'system' ? systemTheme : theme;
   const [navbar, setNavbar] = useState(false);
   const { locale, locales, push } = useRouter();
+  const { t } = useTranslation('navbar');
   const handleClick = (l: string) => () => {
     push('/', undefined, { locale: l });
   };
   return (
     <>
       <h1>{locale}</h1>
+      <h1>{t('hello')}</h1>
       <div>
         <h3>With useRouter</h3>
         <h1>Choose your locale:</h1>
-        {/* {locales.map((l) => (
+        {locales?.map((l) => (
           <button key={l} onClick={handleClick(l)}>
             {l}
           </button>
-        ))} */}
+        ))}
       </div>
 
       <header className="sticky top-0 z-50 mx-auto w-full bg-white px-4 dark:border-b dark:border-stone-300 sm:px-20 ">
@@ -120,5 +124,14 @@ const Navbar = () => {
     </>
   );
 };
+
+// export async function getStaticProps({ locale }: { locale: string }) {
+//   return {
+//     props: {
+//       ...(await serverSideTranslations(locale, ['common', 'navbar'])),
+//       // Will be passed to the page component as props
+//     },
+//   };
+// }
 
 export default Navbar;
