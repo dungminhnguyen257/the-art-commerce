@@ -1,4 +1,5 @@
 // import { useRouter } from 'next/router';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { ThemeProvider } from 'next-themes';
 
 import { Meta } from '@/layouts/Meta';
@@ -22,5 +23,13 @@ const Index = () => {
     </ThemeProvider>
   );
 };
+export async function getStaticProps({ locale }: { locale: string }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['navbar'])),
+      // Will be passed to the page component as props
+    },
+  };
+}
 
 export default Index;
