@@ -1,8 +1,7 @@
 import { prismaMock } from '@db/client-mock';
 import { faker } from '@faker-js/faker';
-import { createAdmin } from '@lib/admins/dao';
+import * as dao from '@lib/admin/dao';
 import cuid from 'cuid';
-
 /* -------------------------------- stub data ------------------------------- */
 
 const lastName = faker.name.lastName();
@@ -13,7 +12,7 @@ const time = new Date();
 
 /* ---------------------------------- Test ---------------------------------- */
 
-test('should create new user', async () => {
+test('should create new admin', async () => {
   const id = cuid();
   const admin = {
     id,
@@ -28,5 +27,5 @@ test('should create new user', async () => {
 
   prismaMock.admin.create.mockResolvedValue(admin);
 
-  await expect(createAdmin(admin)).resolves.toEqual(admin);
+  await expect(dao.createAdmin(admin)).resolves.toEqual(admin);
 });

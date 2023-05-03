@@ -18,7 +18,7 @@ model Admin {
   email         String   @unique
   phone         String?
   createdAt     DateTime  @default(now()) @map(name: "created_at")
-  updatedAt     DateTime  @default(now()) @map(name: "updated_at")
+  updatedAt     DateTime  @updatedAt @map(name: "updated_at")
   deletedAt     DateTime?  @map(name: "deleted_at")
   @@map(name: "admins")
 
@@ -27,10 +27,12 @@ model Admin {
 model Product {
   id        String @default(cuid()) @id
   name      String @unique
-  quantity  Int    
+  stock_quantity  Int
+  price     Decimal
+  image     Bytes?
   createdAt DateTime  @default (now()) @map(name: "create_at")
-  updatedAt DateTime  @default (now()) @map(name: "updated_at")
-  deletedAt DateTime? @default (now())@map(name: "deleted_at")
+  updatedAt DateTime  @updatedAt @map(name: "updated_at")
+  deletedAt DateTime? @map(name: "deleted_at")
   @@map(name: "products")
 
 }
