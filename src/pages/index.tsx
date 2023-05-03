@@ -1,4 +1,3 @@
-// import { useRouter } from 'next/router';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { ThemeProvider } from 'next-themes';
 
@@ -6,8 +5,6 @@ import { Meta } from '@/layouts/Meta';
 import { Main } from '@/templates/Main';
 
 const Index = () => {
-  //   const router = useRouter();
-
   return (
     <ThemeProvider enableSystem={true} attribute="class">
       <Main
