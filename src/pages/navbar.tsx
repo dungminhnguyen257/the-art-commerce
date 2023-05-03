@@ -6,9 +6,10 @@ import Button from '@mui/material/Button';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTheme } from 'next-themes';
 import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { IoMdClose, IoMdMenu } from 'react-icons/io';
 import { RiMoonFill, RiSunLine } from 'react-icons/ri';
 
@@ -20,107 +21,111 @@ const Navbar = () => {
   const { systemTheme, theme, setTheme } = useTheme();
   const currentTheme = theme === 'system' ? systemTheme : theme;
   const [navbar, setNavbar] = useState(false);
-  const { locale, locales, push } = useRouter();
-  const handleClick = (l: string) => () => {
-    push('/', undefined, { locale: l });
-  };
+  const { locale, push } = useRouter();
   const { t } = useTranslation('navbar');
-
+  const handleClick = () => {
+    if (locale === 'en') {
+      push('/', undefined, { locale: 'vi' });
+    } else {
+      push('/', undefined, { locale: 'en' });
+    }
+  };
   return (
-    <header className="sticky top-0 z-50 mx-auto w-full bg-white px-4 dark:border-b dark:border-stone-300 sm:px-20 ">
-      <div className="justify-between md:flex md:items-center">
-        <div className="flex flex-row">
-          <Image src={logo} alt="company's logo" width={80} height={0} />
-          <div className="flex items-center justify-between py-3">
-            <div className="md:flex md:py-5 ">
-              <h2 className="text-2xl font-bold text-yellow-600">
-                {AppConfig.title}
-              </h2>
-            </div>
-            <div className="md:hidden">
-              <button onClick={() => setNavbar(!navbar)}>
-                {navbar ? <IoMdClose size={30} /> : <IoMdMenu size={30} />}
-              </button>
+    <>
+      <header className="sticky top-0 z-50 mx-auto w-full bg-white px-4 dark:border-b dark:border-stone-300 sm:px-20 ">
+        <div className="justify-between md:flex md:items-center">
+          <div className="flex flex-row">
+            <Image src={logo} alt="company's logo" width={80} height={0} />
+            <div className="flex items-center justify-between py-3">
+              <div className="md:flex md:py-5 ">
+                <h2 className="text-2xl font-bold text-yellow-600">
+                  {AppConfig.title}
+                </h2>
+              </div>
+              <div className="md:hidden">
+                <button onClick={() => setNavbar(!navbar)}>
+                  {navbar ? <IoMdClose size={30} /> : <IoMdMenu size={30} />}
+                </button>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div>
-          <div
-            className={`mt-8 flex-1 justify-self-center pb-3 md:mt-0 md:flex md:pb-0 ${
-              navbar ? 'flex' : 'hidden'
-            }`}
-          >
-            <div>
-              <ul className="flex flex-wrap text-xl">
-                <li>
-                  <Link
-                    href="/"
-                    className="flex p-2 hover:text-yellow-900 md:p-4"
+          <div>
+            <div
+              className={`mt-8 flex-1 justify-self-center pb-3 md:mt-0 md:flex md:pb-0 ${
+                navbar ? 'flex' : 'hidden'
+              }`}
+            >
+              <div>
+                <ul className="flex flex-wrap text-xl">
+                  <li>
+                    <Link
+                      href="/"
+                      className="flex p-2 hover:text-yellow-900 md:p-4"
+                    >
+                      {t('Home')}
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/cart/"
+                      className="flex p-2 hover:text-yellow-900 md:p-4"
+                    >
+                      {t('Account')}
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/"
+                      className="flex p-2 hover:text-yellow-900 md:p-4"
+                    >
+                      {t('Your Cart')}
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+              <div className="items-center justify-center space-y-8 p-4 md:flex md:space-x-6 md:space-y-0">
+                {currentTheme === 'dark' ? (
+                  <button
+                    onClick={() => setTheme('light')}
+                    className="rounded-xl bg-slate-100 p-2"
                   >
-                    {t('Home')}
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/cart/"
-                    className="flex p-2 hover:text-yellow-900 md:p-4"
+                    <RiSunLine size={25} color="black" />
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => setTheme('dark')}
+                    className="rounded-xl bg-slate-100 p-2"
                   >
-                    Account
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/"
-                    className="flex p-2 hover:text-yellow-900 md:p-4"
-                  >
-                    Your Cart
-                  </Link>
-                </li>
-              </ul>
-            </div>
-            <div className="items-center justify-center space-y-8 p-4 md:flex md:space-x-6 md:space-y-0">
-              {currentTheme === 'dark' ? (
-                <button
-                  onClick={() => setTheme('light')}
-                  className="rounded-xl bg-slate-100 p-2"
-                >
-                  <RiSunLine size={25} color="black" />
-                </button>
-              ) : (
-                <button
-                  onClick={() => setTheme('dark')}
-                  className="rounded-xl bg-slate-100 p-2"
-                >
-                  <RiMoonFill size={25} />
-                </button>
-              )}
-            </div>
-            <h2>{t(`hello world`)}</h2>
-            {locales.map((l) => (
+                    <RiMoonFill size={25} />
+                  </button>
+                )}
+              </div>
+
               <Button
                 aria-controls="simple-menu"
                 aria-haspopup="true"
                 color="primary"
                 startIcon={<TranslateIcon />}
-                key={l}
-                onClick={handleClick(l)}
+                onClick={handleClick}
               >
-                Language
+                Language {locale}
               </Button>
-            ))}
+            </div>
           </div>
         </div>
-      </div>
-    </header>
+      </header>
+    </>
   );
 };
-// export async function getStaticProps({ locale }) {
-//   return {
-//     props: {
-//       ...(await serverSideTranslations(locale, ['navbar'])),
-//       // Will be passed to the page component as props
-//     },
-//   };
-// }
+
+export async function getStaticProps({ locale }: { locale: string }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common', 'navbar'])),
+      // Will be passed to the page component as props
+    },
+  };
+}
+
 export default Navbar;
