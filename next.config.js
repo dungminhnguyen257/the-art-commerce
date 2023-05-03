@@ -3,6 +3,8 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
 
+const { i18n } = require('./next-i18next.config');
+
 module.exports = withBundleAnalyzer({
   eslint: {
     dirs: ['.'],
@@ -15,3 +17,9 @@ module.exports = withBundleAnalyzer({
   // You can remove `basePath` if you don't need it.
   reactStrictMode: true,
 });
+
+// next.config.js
+const nextConfig = {
+  i18n,
+};
+module.exports = nextConfig;

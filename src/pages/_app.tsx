@@ -1,6 +1,7 @@
 import '../styles/global.css';
 
 import type { AppProps } from 'next/app';
+import { appWithTranslation } from 'next-i18next';
 import { ErrorBoundary } from 'react-error-boundary';
 
 import ErrorFallback from '@/pages/error-fallback';
@@ -18,4 +19,4 @@ const MyApp = ({ Component, pageProps }: AppProps) => (
   </ErrorBoundary>
 );
 
-export default MyApp;
+export default appWithTranslation(MyApp);
