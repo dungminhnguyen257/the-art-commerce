@@ -27,8 +27,9 @@ model Admin {
 model Product {
   id        String @default(cuid()) @id
   name      String @unique
-  stock_quantity  Int
-  price     Decimal
+  description String? 
+  stock_quantity  Int @default(0)
+  price     Decimal @db.Decimal(9,2)  @default(0)
   image     Bytes?
   createdAt DateTime  @default (now()) @map(name: "create_at")
   updatedAt DateTime  @updatedAt @map(name: "updated_at")

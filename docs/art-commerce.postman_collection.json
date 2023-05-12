@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "51a04609-9120-45e9-b08b-215087cfb567",
+		"_postman_id": "7324196d-8914-418e-ae4e-3cb46436de42",
 		"name": "art-commerce",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "20114265"
+		"_exporter_id": "27336218"
 	},
 	"item": [
 		{
@@ -30,6 +30,35 @@
 					"path": [
 						"api",
 						"admin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Product",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Painting\",\n    \"description\": \"Oil on canvas of Picasso by Mr.Van\",\n    \"stock_quantity\": \"1\",\n    \"price\": \"10000.00\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/product",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"product"
 					]
 				}
 			},
