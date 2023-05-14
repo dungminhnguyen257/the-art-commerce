@@ -1,6 +1,8 @@
 import '../styles/global.css';
 
 import type { AppProps } from 'next/app';
+import type { Session } from 'next-auth';
+import { SessionProvider } from 'next-auth/react';
 import { appWithTranslation } from 'next-i18next';
 import { ErrorBoundary } from 'react-error-boundary';
 
@@ -13,9 +15,14 @@ const logError = (error: Error, info: { componentStack: string }) => {
   console.error(info);
 };
 
-const MyApp = ({ Component, pageProps }: AppProps) => (
+const MyApp = ({
+  Component,
+  pageProps: { session, ...pageProps },
+}: AppProps<{ session: Session }>) => (
   <ErrorBoundary FallbackComponent={ErrorFallback} onError={logError}>
-    <Component {...pageProps} />
+    <SessionProvider session={session}>
+      <Component {...pageProps} />
+    </SessionProvider>
   </ErrorBoundary>
 );
 

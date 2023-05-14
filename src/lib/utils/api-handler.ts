@@ -3,10 +3,12 @@ import type { Method } from 'axios';
 import createHttpError from 'http-errors';
 import { StatusCodes } from 'http-status-codes';
 import type { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
+// This is an example of how to read a JSON Web Token from an API route
 import { ZodError } from 'zod';
 import type { ValidationError } from 'zod-validation-error';
 import { fromZodError } from 'zod-validation-error';
 
+import { checkAuthorization } from '@/lib/utils/http';
 // Shape of the response when an error is thrown
 export interface ErrorResponse {
   error: {
@@ -38,13 +40,23 @@ function errorHandler(err: unknown, res: NextApiResponse<ErrorResponse>) {
   }
   if (err instanceof Prisma.PrismaClientKnownRequestError) {
     // source: https://www.prisma.io/docs/reference/api-reference/error-reference#prisma-client-error-types
-    if (err.code === 'P2002') {
-      return res
-        .status(StatusCodes.UNPROCESSABLE_ENTITY)
-        .json(
-          formatError(
-            `Unique constraint failed on the field(s) ${err.meta?.target}`
-          )
+    switch (err.code) {
+      case 'P2002':
+        return res
+          .status(StatusCodes.UNPROCESSABLE_ENTITY)
+          .json(
+            formatError(
+              `Unique constraint failed on the field(s) ${err.meta?.target}`
+            )
+          );
+      case 'P2025':
+        return res.status(StatusCodes.NOT_FOUND).json(formatError(err.message));
+      default:
+        return res.status(StatusCodes.MULTI_STATUS).json(
+          formatError('error code not handled', {
+            error_code: err.code,
+            error_message: err.message,
+          })
         );
     }
   }
@@ -58,9 +70,14 @@ function errorHandler(err: unknown, res: NextApiResponse<ErrorResponse>) {
   });
 }
 
-export function apiHandler(handler: ApiMethodHandlers) {
+export function apiHandler(
+  handler: ApiMethodHandlers,
+  authorizationLevel: 'public' | 'admin' | 'user' = 'user'
+) {
   return async (req: NextApiRequest, res: NextApiResponse<ErrorResponse>) => {
     try {
+      await checkAuthorization(req, authorizationLevel);
+
       const method = req.method
         ? (req.method.toUpperCase() as keyof ApiMethodHandlers)
         : undefined;
