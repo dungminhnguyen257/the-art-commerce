@@ -3,6 +3,7 @@ import '../styles/global.css';
 import type { AppProps } from 'next/app';
 import type { Session } from 'next-auth';
 import { SessionProvider } from 'next-auth/react';
+import { appWithTranslation } from 'next-i18next';
 import { ErrorBoundary } from 'react-error-boundary';
 
 import ErrorFallback from '@/pages/error-fallback';
@@ -25,4 +26,4 @@ const MyApp = ({
   </ErrorBoundary>
 );
 
-export default MyApp;
+export default appWithTranslation(MyApp);
