@@ -1,14 +1,12 @@
-import { Prisma } from '@prisma/client';
+import { Prisma, Role } from '@prisma/client';
 import type { Method } from 'axios';
 import createHttpError from 'http-errors';
 import { StatusCodes } from 'http-status-codes';
 import type { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
-// This is an example of how to read a JSON Web Token from an API route
+import { getToken } from 'next-auth/jwt';
 import { ZodError } from 'zod';
 import type { ValidationError } from 'zod-validation-error';
 import { fromZodError } from 'zod-validation-error';
-
-import { checkAuthorization } from '@/lib/utils/http';
 // Shape of the response when an error is thrown
 export interface ErrorResponse {
   error: {
@@ -68,6 +66,33 @@ function errorHandler(err: unknown, res: NextApiResponse<ErrorResponse>) {
     },
     status: createHttpError.isHttpError(err) ? err.statusCode : 500,
   });
+}
+
+async function checkAuthorization(
+  req: NextApiRequest,
+  authorizationLevel: 'admin' | 'user' | 'public' = 'admin'
+) {
+  const token = await getToken({ req });
+  const { userId } = req.query;
+  if (authorizationLevel === Role.admin) {
+    if (token?.role === Role.admin) {
+      // Admin signed in
+      return;
+    }
+  } else if (authorizationLevel === Role.user && userId) {
+    // user specific authorization
+    if (token?.role === Role.admin || token?.sub === userId) {
+      return;
+    }
+  } else if (authorizationLevel === Role.user && !userId) {
+    // generic user authorization
+    if (token) {
+      return;
+    }
+  } else if (authorizationLevel === 'public') {
+    return;
+  }
+  throw new createHttpError.Unauthorized();
 }
 
 export function apiHandler(
