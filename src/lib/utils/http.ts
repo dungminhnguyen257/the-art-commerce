@@ -1,3 +1,8 @@
+import { Role } from '@prisma/client';
+import createHttpError from 'http-errors';
+import type { NextApiRequest } from 'next';
+import { getToken } from 'next-auth/jwt';
+
 export async function post(url = '', data = {}) {
   // Default options are marked with *
   const response = await fetch(url, {
@@ -14,4 +19,32 @@ export async function post(url = '', data = {}) {
     body: JSON.stringify(data), // body data type must match "Content-Type" header
   });
   return response.json(); // parses JSON response into native JavaScript objects
+}
+
+export async function checkAuthorization(
+  req: NextApiRequest,
+  authorizationLevel: 'admin' | 'user' | 'public' = 'admin',
+  userId?: string
+) {
+  const token = await getToken({ req });
+
+  if (authorizationLevel === Role.admin) {
+    if (token?.role === Role.admin) {
+      // Admin signed in
+      return;
+    }
+  } else if (authorizationLevel === Role.user && userId) {
+    // user specific authorization
+    if (token?.role === Role.admin || token?.sub === userId) {
+      return;
+    }
+  } else if (authorizationLevel === Role.user && !userId) {
+    // generic user authorization
+    if (token) {
+      return;
+    }
+  } else if (authorizationLevel === 'public') {
+    return;
+  }
+  throw new createHttpError.Unauthorized();
 }
