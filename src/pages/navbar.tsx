@@ -121,7 +121,11 @@ const Navbar = () => {
                       </Link>
                     </li>
                   )}
-                  {loading && <Spinner />}
+                  {loading && (
+                    <li>
+                      <Spinner />
+                    </li>
+                  )}
                 </ul>
               </div>
               <div className="items-center justify-center space-y-8 p-4 md:flex md:space-x-6 md:space-y-0">
