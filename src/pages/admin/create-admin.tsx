@@ -1,6 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import type { AdminRequestBody } from '@lib/admin/dto';
-import { AdminRequestBodySchema } from '@lib/admin/dto';
+import type { UserPostBody } from '@lib/user/dto';
+import { UserPostBodySchema } from '@lib/user/dto';
 import { useErrorBoundary } from 'react-error-boundary';
 import type { SubmitHandler } from 'react-hook-form';
 import { useForm } from 'react-hook-form';
@@ -10,11 +10,13 @@ import { post } from '@/lib/utils/http';
 
 export default function CreateAdmin() {
   const { showBoundary } = useErrorBoundary();
-  const defaultValues: AdminRequestBody = {
+  const defaultValues: UserPostBody = {
     firstName: '',
     lastName: '',
     phone: '',
     email: '',
+    role: 'admin',
+    emailVerified: false,
   };
 
   const {
@@ -22,11 +24,11 @@ export default function CreateAdmin() {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<AdminRequestBody>({
+  } = useForm<UserPostBody>({
     defaultValues,
-    resolver: zodResolver(AdminRequestBodySchema),
+    resolver: zodResolver(UserPostBodySchema),
   });
-  const onSubmit: SubmitHandler<AdminRequestBody> = async (data) => {
+  const onSubmit: SubmitHandler<UserPostBody> = async (data) => {
     const response = await post('/api/admin', data);
     if (!response.error) {
       reset();
