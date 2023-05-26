@@ -12,7 +12,9 @@ export default function CreateProduct() {
   const { showBoundary } = useErrorBoundary();
   const defaultValues: ProductRequestBody = {
     name: '',
-    price: '',
+    image: null,
+    stock_quantity: 0,
+    price: 0 as any,
     description: '',
   };
 
@@ -27,7 +29,7 @@ export default function CreateProduct() {
   });
 
   const onSubmit: SubmitHandler<ProductRequestBody> = async (data) => {
-    const response = await post('/api/products', data);
+    const response = await post('/api/product', data);
     if (!response.error) {
       reset();
     } else {
@@ -42,8 +44,7 @@ export default function CreateProduct() {
           <span className="text-black">Product name</span>
           <input
             type="text"
-            className="w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:border-indigo-500
-                    focus:outline-none"
+            className="w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:border-indigo-500 focus:outline-none"
             placeholder=""
             {...register('name')}
           />
@@ -51,14 +52,37 @@ export default function CreateProduct() {
             <p className="text-red-600">This field is required</p>
           )}
         </label>
+
+        <label className="block">
+          <span className="text-black">Image</span>
+          <input
+            type="file"
+            className="w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:border-indigo-500 focus:outline-none"
+            {...register('image')}
+          />
+          {errors.image && (
+            <p className="text-red-600">This field is required</p>
+          )}
+        </label>
+
+        <label className="block">
+          <span className="text-black">Stock quantity</span>
+          <input
+            type="number"
+            className="w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:border-indigo-500 focus:outline-none"
+            placeholder=""
+            {...register('stock_quantity')}
+          />
+          {errors.stock_quantity && (
+            <p className="text-red-600">This field is required</p>
+          )}
+        </label>
+
         <label className="block">
           <span className="text-black">Price</span>
           <input
             type="number"
-            className="
-                    w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:border-indigo-500
-                    focus:outline-none
-                  "
+            className="w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:border-indigo-500 focus:outline-none"
             placeholder=""
             {...register('price')}
           />
@@ -71,10 +95,7 @@ export default function CreateProduct() {
           <span className="text-black">Description</span>
           <input
             type="text"
-            className="
-                    w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:border-indigo-500
-                    focus:outline-none
-                  "
+            className="w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:border-indigo-500 focus:outline-none"
             placeholder=""
             {...register('description')}
           />

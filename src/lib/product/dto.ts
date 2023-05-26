@@ -1,13 +1,13 @@
-import image from 'next/image';
-import {z} from 'zod';
+import { z } from 'zod';
 
-export const ProductRequestBodySchema {
+export const ProductRequestBodySchema = z.object({
   name: z.string().nonempty(),
   description: z.string().optional().nullable(),
-  stock_quantity: z.number().nonnegative().nonempty(),
-  price: z.number().nonnegative().nonempty(),
-  image: z.instanceof(File)
-};
+  stock_quantity: z.number().nonnegative(),
+  // price: z.instanceof(Prisma.Decimal),
+  price: z.number(),
+  image: z.instanceof(Buffer).nullable().optional(),
+});
 
 export type ProductRequestBody = z.infer<typeof ProductRequestBodySchema>;
 
