@@ -5,7 +5,7 @@ export const ProductRequestBodySchema = z.object({
   description: z.string().optional().nullable(),
   stock_quantity: z.number().nonnegative(),
   // price: z.instanceof(Prisma.Decimal),
-  price: z.number(),
+  price: z.number().min(0),
   image: z.instanceof(Buffer).nullable().optional(),
 });
 
