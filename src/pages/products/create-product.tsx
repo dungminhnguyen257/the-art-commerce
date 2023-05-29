@@ -36,7 +36,7 @@ export default function CreateProduct() {
       showBoundary(response.error);
     }
   };
-
+  console.log(errors);
   return (
     <form className="mt-8 ml-8 max-w-md" onSubmit={handleSubmit(onSubmit)}>
       <div className="grid grid-cols-1 gap-6">
@@ -60,10 +60,8 @@ export default function CreateProduct() {
             className="w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:border-indigo-500 focus:outline-none"
             {...register('image')}
           />
-          {errors.image && (
-            <p className="text-red-600">This field is required</p>
-          )}
         </label>
+        {/* <div>{JSON.stringify(errors)}</div> */}
 
         <label className="block">
           <span className="text-black">Stock quantity</span>
@@ -71,9 +69,9 @@ export default function CreateProduct() {
             type="number"
             className="w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:border-indigo-500 focus:outline-none"
             placeholder=""
-            {...register('stock_quantity')}
+            {...register('stock_quantity', { valueAsNumber: true })}
           />
-          {errors.stock_quantity && (
+          {!errors.stock_quantity && (
             <p className="text-red-600">This field is required</p>
           )}
         </label>
@@ -84,9 +82,9 @@ export default function CreateProduct() {
             type="number"
             className="w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:border-indigo-500 focus:outline-none"
             placeholder=""
-            {...register('price')}
+            {...register('price', { valueAsNumber: true })}
           />
-          {errors.price && (
+          {!errors.price && (
             <p className="text-red-600">This field is required</p>
           )}
         </label>
