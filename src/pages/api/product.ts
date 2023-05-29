@@ -10,7 +10,9 @@ import { apiHandler } from '@/lib/utils/api-handler';
 const postProduct: NextApiHandler<ProductResponse> = async (req, res) => {
   ProductRequestBodySchema.parse(req.body);
   const productRecord = await dao.createProduct(req.body);
-  res.status(StatusCodes.CREATED).json(productRecord);
+  res
+    .status(StatusCodes.CREATED)
+    .json({ ...productRecord, price: Number(productRecord.price) });
 };
 
 export default apiHandler({
