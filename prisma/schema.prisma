@@ -10,20 +10,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
-model Product {
-  id             String    @id @default(cuid())
-  name           String    @unique
-  stock_quantity Int
-  price          Decimal
-  image          Bytes?
-  createdAt      DateTime  @default(now()) @map(name: "create_at")
-  updatedAt      DateTime  @updatedAt @map(name: "updated_at")
-  deletedAt      DateTime? @map(name: "deleted_at")
-
-  @@map(name: "products")
-}
-
 model Account {
   id                String  @id @default(cuid())
   userId            String  @map("user_id")
@@ -81,7 +67,18 @@ model VerificationToken {
   @@unique([identifier, token])
   @@map("verification_tokens")
 }
-
+model Product {
+  id        String @default(cuid()) @id
+  name      String @unique
+  description String? 
+  stock_quantity  Int @default(0)
+  price     Decimal @db.Decimal(9,2)  @default(0)
+  image     Bytes?
+  createdAt DateTime  @default (now()) @map(name: "create_at")
+  updatedAt DateTime  @updatedAt @map(name: "updated_at")
+  deletedAt DateTime? @map(name: "deleted_at")
+  @@map(name: "products")
+}
 // ENUMS
 enum Role {
   user
