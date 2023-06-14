@@ -14,7 +14,9 @@ const Index = () => {
             description="Next js Boilerplate is the perfect starter code for your project. Build your React application with the Next.js framework."
           />
         }
-      ></Main>
+      >
+        Main
+      </Main>
     </ThemeProvider>
   );
 };

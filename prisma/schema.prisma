@@ -83,4 +83,5 @@ model Product {
 enum Role {
   user
   admin
+  public
 }
