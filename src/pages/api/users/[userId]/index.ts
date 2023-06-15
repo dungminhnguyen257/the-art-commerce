@@ -21,8 +21,8 @@ const patch: NextApiHandler<UserResponse> = async (req, res) => {
 
 export default apiHandler(
   {
-    GET: get,
-    PATCH: patch,
+    GET: { handler: get },
+    PATCH: { handler: patch },
   },
   Role.user
 );
