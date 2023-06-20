@@ -49,7 +49,7 @@ const Main = (props: IMainProps) => {
                       href="/view-product/"
                       className="border-none hover:text-yellow-900"
                     >
-                      view-product
+                      View-Product
                     </Link>
                   </li>
                   <li className="mr-6">
