@@ -9,3 +9,7 @@ export async function createProduct(product: ProductRequestBody) {
   });
   return { ...record, price: Number(record.price) };
 }
+
+export async function findAllProducts() {
+  return prisma.product.findMany();
+}

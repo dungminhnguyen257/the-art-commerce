@@ -45,6 +45,14 @@ const Main = (props: IMainProps) => {
                     </Link>
                   </li>
                   <li className="mr-6">
+                    <Link
+                      href="/view-product/"
+                      className="border-none hover:text-yellow-900"
+                    >
+                      View-Product
+                    </Link>
+                  </li>
+                  <li className="mr-6">
                     <a
                       className="border-none hover:text-yellow-900"
                       href="https://github.com/ixartz/Next-js-Boilerplate"

@@ -9,6 +9,8 @@ export const ProductRequestBodySchema = z.object({
   image: z.instanceof(Buffer).nullable().optional(),
 });
 
+export type Product = z.infer<typeof ProductRequestBodySchema>;
+
 export type ProductRequestBody = z.infer<typeof ProductRequestBodySchema>;
 
 export type ProductResponse = ProductRequestBody & { id: string };
