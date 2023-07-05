@@ -1,21 +1,53 @@
+import type { GetServerSideProps, NextPage } from 'next';
+
 import { Meta } from '@/layouts/Meta';
 import { Main } from '@/templates/Main';
 
-const Cart = () => (
-  <Main meta={<Meta title="Lorem ipsum" description="Lorem ipsum" />}>
-    <p>
-      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ratione fuga
-      recusandae quidem. Quaerat molestiae blanditiis doloremque possimus labore
-      voluptatibus distinctio recusandae autem esse explicabo molestias officia
-      placeat, accusamus aut saepe.
-    </p>
-    <p>
-      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ratione fuga
-      recusandae quidem. Quaerat molestiae blanditiis doloremque possimus labore
-      voluptatibus distinctio recusandae autem esse explicabo molestias officia
-      placeat, accusamus aut saepe.
-    </p>
-  </Main>
-);
+interface CartItem {
+  id: string;
+  name: string;
+  price: number;
+}
 
-export default Cart;
+interface CartPageProps {
+  cartItems: CartItem[];
+}
+
+const CartPage: NextPage<CartPageProps> = ({ cartItems }) => {
+  return (
+    <Main meta={<Meta title="Cart" description="Cart" />}>
+      <div className="container mx-auto py-8">
+        <h1 className="mb-8 text-3xl font-bold">Cart</h1>
+        {cartItems.length > 0 ? (
+          <ul>
+            {cartItems.map((item) => (
+              <li key={item.id}>
+                <h3>{item.name}</h3>
+                <p>{item.price}</p>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>Your cart is empty</p>
+        )}
+      </div>
+    </Main>
+  );
+};
+
+export const getServerSideProps: GetServerSideProps<
+  CartPageProps
+> = async () => {
+  // Fetch the cart items from your backend API based on the user session
+  const cartItems = await fetch('http://localhost:3000/api/cart').then(
+    (response) => response.json()
+  );
+
+  return {
+    props: {
+      cartItems,
+    },
+  };
+};
+
+export default CartPage;
