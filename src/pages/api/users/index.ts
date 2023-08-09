@@ -20,8 +20,8 @@ const post: NextApiHandler<UserResponse> = async (req, res) => {
 
 export default apiHandler(
   {
-    GET: get,
-    POST: post,
+    GET: { handler: get },
+    POST: { handler: post },
   },
   Role.admin
 );

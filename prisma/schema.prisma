@@ -70,7 +70,7 @@ model VerificationToken {
 model Product {
   id        String @default(cuid()) @id
   name      String @unique
-  description String? 
+  description String?
   stock_quantity  Int @default(0)
   price     Decimal @db.Decimal(9,2)  @default(0)
   image     Bytes?
