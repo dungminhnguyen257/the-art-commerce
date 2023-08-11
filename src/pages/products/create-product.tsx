@@ -59,11 +59,9 @@ export default function CreateProduct() {
           <input
             type="file"
             className="w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:border-indigo-500 focus:outline-none"
-            // {...register('image')}
             ref={register}
           />
         </label>
-        {/* <div>{JSON.stringify(errors)}</div> */}
 
         <label className="block">
           <span className="text-black">Stock quantity</span>

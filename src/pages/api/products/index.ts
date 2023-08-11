@@ -1,6 +1,7 @@
 import * as dao from '@lib/product/dao';
 import type { ProductResponse } from '@lib/product/dto';
 import { ProductRequestBodySchema } from '@lib/product/dto';
+import { Role } from '@prisma/client';
 import { StatusCodes } from 'http-status-codes';
 import type { NextApiHandler } from 'next';
 
@@ -27,8 +28,8 @@ const postProduct: NextApiHandler<ProductResponse> = async (req, res) => {
 
 export default apiHandler(
   {
-    POST: postProduct,
-    GET: get,
+    POST: { handler: postProduct, authorizationLevel: Role.admin },
+    GET: { handler: get },
   },
-  'public'
+  Role.public
 );
