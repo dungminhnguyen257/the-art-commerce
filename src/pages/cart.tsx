@@ -28,7 +28,7 @@ const CartPage: NextPage<CartPageProps> = ({ cartItems }) => {
             ))}
           </ul>
         ) : (
-          <p>Your cart is empty</p>
+          <p>Please add an item</p>
         )}
       </div>
     </Main>
