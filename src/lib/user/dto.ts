@@ -8,7 +8,7 @@ const UserBodySchema = z.object({
   phone: z.string().optional().nullable(),
   email: z.string().email().nonempty(),
   emailVerified: z.boolean().nullable(),
-  role: z.enum([Role.admin, Role.user]),
+  role: z.enum([Role.admin, Role.user, Role.public]),
 });
 
 export const UserPostBodySchema = UserBodySchema.omit({ id: true });

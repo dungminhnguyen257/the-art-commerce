@@ -3,6 +3,7 @@ import type { Method } from 'axios';
 import createHttpError from 'http-errors';
 import { StatusCodes } from 'http-status-codes';
 import type { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
+import type { JWT } from 'next-auth/jwt';
 import { getToken } from 'next-auth/jwt';
 import { ZodError } from 'zod';
 import type { ValidationError } from 'zod-validation-error';
@@ -21,7 +22,10 @@ const formatError = (message: string, detail: any = undefined) => ({
 });
 
 type ApiMethodHandlers = {
-  [key in Uppercase<Method>]?: NextApiHandler;
+  [key in Uppercase<Method>]?: {
+    handler: NextApiHandler;
+    authorizationLevel?: keyof typeof Role | null | undefined;
+  };
 };
 
 function errorHandler(err: unknown, res: NextApiResponse<ErrorResponse>) {
@@ -68,12 +72,11 @@ function errorHandler(err: unknown, res: NextApiResponse<ErrorResponse>) {
   });
 }
 
-async function checkAuthorization(
-  req: NextApiRequest,
-  authorizationLevel: 'admin' | 'user' | 'public' = 'admin'
+function checkRole(
+  token: JWT | null,
+  userId: string | string[] | undefined,
+  authorizationLevel: keyof typeof Role
 ) {
-  const token = await getToken({ req });
-  const { userId } = req.query;
   if (authorizationLevel === Role.admin) {
     if (token?.role === Role.admin) {
       // Admin signed in
@@ -89,10 +92,24 @@ async function checkAuthorization(
     if (token) {
       return;
     }
-  } else if (authorizationLevel === 'public') {
+  } else if (authorizationLevel === Role.public) {
     return;
   }
   throw new createHttpError.Unauthorized();
+}
+
+async function checkAuthorization(
+  req: NextApiRequest,
+  routeAuthorizationLevel: keyof typeof Role | null | undefined,
+  authorizationLevel: keyof typeof Role = 'admin'
+) {
+  const token = await getToken({ req });
+  const { userId } = req.query;
+  if (routeAuthorizationLevel) {
+    checkRole(token, userId, routeAuthorizationLevel);
+  } else {
+    checkRole(token, userId, authorizationLevel);
+  }
 }
 
 export function apiHandler(
@@ -101,19 +118,24 @@ export function apiHandler(
 ) {
   return async (req: NextApiRequest, res: NextApiResponse<ErrorResponse>) => {
     try {
-      await checkAuthorization(req, authorizationLevel);
-
       const method = req.method
         ? (req.method.toUpperCase() as keyof ApiMethodHandlers)
         : undefined;
 
       // check if handler supports current HTTP method
-      if (!method)
+      if (!method) {
         throw new createHttpError.MethodNotAllowed(
           `No method specified on path ${req.url}!`
         );
+      }
 
-      const methodHandler = handler[method];
+      await checkAuthorization(
+        req,
+        handler[method]?.authorizationLevel,
+        authorizationLevel
+      );
+
+      const methodHandler = handler[method]?.handler;
       if (!methodHandler)
         throw new createHttpError.MethodNotAllowed(
           `Method ${req.method} Not Allowed on path ${req.url}!`

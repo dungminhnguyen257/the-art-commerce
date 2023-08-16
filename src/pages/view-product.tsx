@@ -25,11 +25,7 @@ const ProductPage: NextPage<ProductPageProps> = ({ products }) => {
               key={product.id}
               className="overflow-hidden rounded-lg bg-white shadow-lg"
             >
-              <img
-                // src={product.image}
-                alt={product.name}
-                className="h-48 w-full object-cover"
-              />
+              <img alt={product.name} className="h-48 w-full object-cover" />
               <div className="p-4">
                 <h3 className="mb-2 text-lg font-semibold">{product.name}</h3>
                 <p className="mb-4 text-gray-600">{product.description}</p>
