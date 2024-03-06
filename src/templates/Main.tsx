@@ -36,6 +36,7 @@ const Main = (props: IMainProps) => {
                       Home
                     </Link>
                   </li>
+                  <Link href="/account"></Link>
                   <li className="mr-6">
                     <Link
                       href="/cart/"
