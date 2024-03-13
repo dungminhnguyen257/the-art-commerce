@@ -1,53 +1,3 @@
-// import {useState} from 'react';
-
-// export default function AccountPage () {
-//   const [formData, setFormData] = useState ({
-//     firstName : '',
-//     lastName: '',
-//     address: '',
-//     email: '',
-//     phoneNumber: ''
-//   });
-//   const handleChange = (e: { target: { name: any; value: any; }; }) => {
-//     const { name, value } = e.target;
-//     setFormData(prevState => ({
-//       ...prevState,
-//       [name]: value
-//     }));
-//   };
-//   const handleSubmit = (e: { preventDefault: () => void; }) => {
-//     e.preventDefault();
-//     // You can send the form data to the server here to process 
-//     console.log(formData);
-//   };
-//   return(
-//     <div>
-//       <h1>Account Page</h1>
-//       <form onSubmit={handleSubmit}>
-//         <label>
-//           First Name:
-//           <input type='text' name='firstName' value={formData.firstName} onChange={handleChange} />
-//         </label>
-//         <label>
-//           Last Name:
-//           <input type='text' name='lastName' value={formData.lastName} onChange={handleChange}/>
-//         </label>
-//         <label>
-//           Address:
-//           <input type='text' name='address' value={formData.address} onChange={handleChange}/>
-//         </label>
-//         <label>
-//           Email:
-//         <input type='email' name='email' value={formData.email} onChange={handleChange}/>
-//         </label>
-//           Phone Number:
-//           <input type='tel' name='phoneNumber' value={formData.phoneNumber} onChange={handleChange}/>
-//         <button type='submit'>Submit</button>
-//       </form>
-//     </div>
-//   )
-// }
-
 import { zodResolver } from '@hookform/resolvers/zod';
 import type { CustomerPostBody } from '@lib/customer/dto';
 import { CustomerPostBodySchema } from '@lib/customer/dto';
@@ -66,8 +16,8 @@ export default function CreateAccount() {
     address: '',
     email: '',
     phone: '',
-    emailVerified: null,
-    role: 'admin'
+    emailVerified: false,
+    role: 'user'
   };
 
   const {
@@ -81,7 +31,7 @@ export default function CreateAccount() {
   });
 
   const onSubmit: SubmitHandler<CustomerPostBody> = async (data) => {
-    const response = await post('/api/account', data);
+    const response = await post('/api/users', data);
     if (!response.error) {
       reset();
     } else {

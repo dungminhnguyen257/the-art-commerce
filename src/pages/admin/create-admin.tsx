@@ -1,21 +1,21 @@
-import { zodResolver } from '@hookform/resolvers/zod';
-import type { UserPostBody } from '@lib/user/dto';
-import { UserPostBodySchema } from '@lib/user/dto';
-import { useErrorBoundary } from 'react-error-boundary';
-import type { SubmitHandler } from 'react-hook-form';
-import { useForm } from 'react-hook-form';
+import { zodResolver } from "@hookform/resolvers/zod";
+import type { UserPostBody } from "@lib/user/dto";
+import { UserPostBodySchema } from "@lib/user/dto";
+import { useErrorBoundary } from "react-error-boundary";
+import type { SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
 
-import SubmitButton from '@/lib/common-ui/submit-button';
-import { post } from '@/lib/utils/http';
+import SubmitButton from "@/lib/common-ui/submit-button";
+import { post } from "@/lib/utils/http";
 
 export default function CreateAdmin() {
   const { showBoundary } = useErrorBoundary();
   const defaultValues: UserPostBody = {
-    firstName: '',
-    lastName: '',
-    phone: '',
-    email: '',
-    role: 'admin',
+    firstName: "",
+    lastName: "",
+    phone: "",
+    email: "",
+    role: "admin",
     emailVerified: false,
   };
 
@@ -29,7 +29,7 @@ export default function CreateAdmin() {
     resolver: zodResolver(UserPostBodySchema),
   });
   const onSubmit: SubmitHandler<UserPostBody> = async (data) => {
-    const response = await post('/api/admin', data);
+    const response = await post("/api/admin", data);
     if (!response.error) {
       reset();
     } else {
@@ -47,7 +47,7 @@ export default function CreateAdmin() {
             className="w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:border-indigo-500
                     focus:outline-none"
             placeholder=""
-            {...register('firstName')}
+            {...register("firstName")}
           />
           {errors.firstName && (
             <p className="text-red-600">This field is required</p>
@@ -62,7 +62,7 @@ export default function CreateAdmin() {
                     focus:outline-none
                   "
             placeholder=""
-            {...register('lastName')}
+            {...register("lastName")}
           />
           {errors.lastName && (
             <p className="text-red-600">This field is required</p>
@@ -78,7 +78,7 @@ export default function CreateAdmin() {
                     focus:outline-none
                   "
             placeholder="john@example.com"
-            {...register('email')}
+            {...register("email")}
           />
           {errors.email && (
             <p className="text-red-600">This field is required</p>
@@ -93,7 +93,7 @@ export default function CreateAdmin() {
                     focus:outline-none
                   "
             placeholder=""
-            {...register('phone')}
+            {...register("phone")}
           />
         </label>
       </div>
