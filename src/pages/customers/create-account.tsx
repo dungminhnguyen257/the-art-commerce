@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { zodResolver } from '@hookform/resolvers/zod';
 import type { CustomerPostBody } from '@lib/customer/dto';
 import { CustomerPostBodySchema } from '@lib/customer/dto';
@@ -9,6 +10,7 @@ import SubmitButton from '@/lib/common-ui/submit-button';
 import { post } from '@/lib/utils/http';
 
 export default function CreateAccount() {
+  const router = useRouter();
   const { showBoundary } = useErrorBoundary();
   const defaultValues: CustomerPostBody = {
     firstName: '',
@@ -22,7 +24,7 @@ export default function CreateAccount() {
 
   const {
     register,
-    handleSubmit,
+    handleSubmit: onSubmit, 
     reset,
     formState: { errors },
   } = useForm<CustomerPostBody>({
@@ -30,17 +32,21 @@ export default function CreateAccount() {
     resolver: zodResolver(CustomerPostBodySchema),
   });
 
-  const onSubmit: SubmitHandler<CustomerPostBody> = async (data) => {
+  const onSubmitHandler: SubmitHandler<CustomerPostBody> = async (data) => {
     const response = await post('/api/users', data);
     if (!response.error) {
       reset();
+      router.push({
+        pathname: '/success', 
+        query: data,
+      });
     } else {
       showBoundary(response.error);
     }
   };
 
   return (
-    <form className="mt-8 ml-8 max-w-md" onSubmit={handleSubmit(onSubmit)}>
+    <form className="mt-8 ml-8 max-w-md" onSubmit={onSubmit(onSubmitHandler)}>
       <div className="grid grid-cols-1 gap-6">
         <label className="block">
           <span className="text-black">First Name</span>
