@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import { zodResolver } from '@hookform/resolvers/zod';
-import type { CustomerPostBody } from '@lib/customer/dto';
-import { CustomerPostBodySchema } from '@lib/customer/dto';
+import type { UserPostBody } from '@lib/user/dto';
+import { UserPostBodySchema } from '@lib/user/dto';
 import { useErrorBoundary } from 'react-error-boundary';
 import type { SubmitHandler } from 'react-hook-form';
 import { useForm } from 'react-hook-form';
@@ -12,7 +12,7 @@ import { post } from '@/lib/utils/http';
 export default function CreateAccount() {
   const router = useRouter();
   const { showBoundary } = useErrorBoundary();
-  const defaultValues: CustomerPostBody = {
+  const defaultValues: UserPostBody = {
     firstName: '',
     lastName: '',
     address: '',
@@ -27,12 +27,12 @@ export default function CreateAccount() {
     handleSubmit: onSubmit, 
     reset,
     formState: { errors },
-  } = useForm<CustomerPostBody>({
+  } = useForm<UserPostBody>({
     defaultValues,
-    resolver: zodResolver(CustomerPostBodySchema),
+    resolver: zodResolver(UserPostBodySchema),
   });
 
-  const onSubmitHandler: SubmitHandler<CustomerPostBody> = async (data) => {
+  const onSubmitHandler: SubmitHandler<UserPostBody> = async (data) => {
     const response = await post('/api/users', data);
     if (!response.error) {
       reset();
