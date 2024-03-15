@@ -6,6 +6,7 @@ const UserBodySchema = z.object({
   firstName: z.string().nonempty(),
   lastName: z.string().nonempty(),
   phone: z.string().optional().nullable(),
+  address: z.string().optional().nullable(),
   email: z.string().email().nonempty(),
   emailVerified: z.boolean().nullable(),
   role: z.enum([Role.admin, Role.user, Role.public]),
